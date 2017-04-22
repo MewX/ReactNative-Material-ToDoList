@@ -6,6 +6,7 @@ import * as React from "react";
 import {ListView, StatusBar, Text, TextInput, TouchableNativeFeedback, View} from "react-native";
 import {Toolbar, BottomNavigation, ThemeProvider} from 'react-native-material-ui';
 import * as COLOR from "react-native-material-ui/src/styles/colors";
+import SortableListView from "react-native-sortable-listview";
 
 const uiTheme = {
     palette: {
@@ -65,18 +66,48 @@ class MainActivity extends React.Component {
                         onSubmitEditing={(event) => this.addNewItem(event.nativeEvent.text)}
                     />
 
-                    <ListView
-                        enableEmptySections={true}
+                    {/*<ListView*/}
+                        {/*enableEmptySections={true}*/}
+                        {/*style={{flex: 1}}*/}
+                        {/*dataSource={this.state.ds.cloneWithRows(*/}
+                            {/*this.state.items*/}
+                                {/*.map(this.itemMapping.bind(this))*/}
+                                {/*.filter(this.itemFilter.bind(this)))*/}
+                        {/*}*/}
+                        {/*renderRow={(rowData) => {*/}
+                            {/*let textBgColor = rowData.done ? COLOR.grey300 : '#ffffff00';*/}
+                            {/*let textDeco = rowData.done ? 'line-through' : 'none';*/}
+                            {/*console.log(rowData);*/}
+
+                            {/*return (<TouchableNativeFeedback*/}
+                                {/*background={TouchableNativeFeedback.SelectableBackground()}>*/}
+                                {/*<View style={{alignSelf: "stretch", backgroundColor: textBgColor}}>*/}
+                                    {/*<Text*/}
+                                        {/*style={{*/}
+                                            {/*padding: 12, textAlign: 'left', justifyContent: 'center',*/}
+                                            {/*fontSize: 16, textDecorationLine: textDeco*/}
+                                        {/*}}*/}
+                                        {/*onPress={() => this.changeItemState(rowData.id)}*/}
+                                    {/*>{rowData.text}</Text>*/}
+                                {/*</View>*/}
+                            {/*</TouchableNativeFeedback>);*/}
+                        {/*}}*/}
+                    {/*/>*/}
+
+                    <SortableListView
+                        // enableEmptySections={true}
                         style={{flex: 1}}
-                        dataSource={this.state.ds.cloneWithRows(
+                        data={this.convertDataFormat(
                             this.state.items
                                 .map(this.itemMapping.bind(this))
                                 .filter(this.itemFilter.bind(this)))
                         }
+                        onRowMoved={(e) => this.itemMoved(e.from, e.to)}
                         renderRow={(rowData) => {
                             let textBgColor = rowData.done ? COLOR.grey300 : '#ffffff00';
                             let textDeco = rowData.done ? 'line-through' : 'none';
                             console.log(rowData);
+                            return (<Text>{rowData.text}</Text>);
 
                             return (<TouchableNativeFeedback
                                 background={TouchableNativeFeedback.SelectableBackground()}>
@@ -139,6 +170,20 @@ class MainActivity extends React.Component {
             default:
                 return true;
         }
+    }
+
+    convertDataFormat(arr) {
+        let ret = {};
+        for (let i = 0; i < arr.length; i ++) {
+            ret[i] = arr[i];
+        }
+        console.log("ret: " + ret);
+        return ret;
+    }
+
+    itemMoved(from, to) {
+        console.log("item moved: " + from + " -> " + to);
+
     }
 
     addNewItem(str) {
