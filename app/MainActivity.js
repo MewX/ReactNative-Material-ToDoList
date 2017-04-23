@@ -66,34 +66,6 @@ class MainActivity extends React.Component {
                         onSubmitEditing={(event) => this.addNewItem(event.nativeEvent.text)}
                     />
 
-                    {/*<ListView*/}
-                        {/*enableEmptySections={true}*/}
-                        {/*style={{flex: 1}}*/}
-                        {/*dataSource={this.state.ds.cloneWithRows(*/}
-                            {/*this.state.items*/}
-                                {/*.map(this.itemMapping.bind(this))*/}
-                                {/*.filter(this.itemFilter.bind(this)))*/}
-                        {/*}*/}
-                        {/*renderRow={(rowData) => {*/}
-                            {/*let textBgColor = rowData.done ? COLOR.grey300 : '#ffffff00';*/}
-                            {/*let textDeco = rowData.done ? 'line-through' : 'none';*/}
-                            {/*console.log(rowData);*/}
-
-                            {/*return (<TouchableNativeFeedback*/}
-                                {/*background={TouchableNativeFeedback.SelectableBackground()}>*/}
-                                {/*<View style={{alignSelf: "stretch", backgroundColor: textBgColor}}>*/}
-                                    {/*<Text*/}
-                                        {/*style={{*/}
-                                            {/*padding: 12, textAlign: 'left', justifyContent: 'center',*/}
-                                            {/*fontSize: 16, textDecorationLine: textDeco*/}
-                                        {/*}}*/}
-                                        {/*onPress={() => this.changeItemState(rowData.id)}*/}
-                                    {/*>{rowData.text}</Text>*/}
-                                {/*</View>*/}
-                            {/*</TouchableNativeFeedback>);*/}
-                        {/*}}*/}
-                    {/*/>*/}
-
                     <SortableListView
                         // enableEmptySections={true}
                         style={{flex: 1}}
@@ -107,20 +79,21 @@ class MainActivity extends React.Component {
                             let textBgColor = rowData.done ? COLOR.grey300 : '#ffffff00';
                             let textDeco = rowData.done ? 'line-through' : 'none';
                             console.log(rowData);
-                            return (<Text>{rowData.text}</Text>);
 
-                            return (<TouchableNativeFeedback
-                                background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{alignSelf: "stretch", backgroundColor: textBgColor}}>
-                                    <Text
-                                        style={{
-                                            padding: 12, textAlign: 'left', justifyContent: 'center',
-                                            fontSize: 16, textDecorationLine: textDeco
-                                        }}
-                                        onPress={() => this.changeItemState(rowData.id)}
-                                    >{rowData.text}</Text>
-                                </View>
-                            </TouchableNativeFeedback>);
+                            return (
+                                <TouchableNativeFeedback
+                                    background={TouchableNativeFeedback.SelectableBackground()}>
+                                    <View style={{alignSelf: "stretch", backgroundColor: textBgColor}}>
+                                        <Text
+                                            style={{
+                                                padding: 12, textAlign: 'left', justifyContent: 'center',
+                                                fontSize: 16, textDecorationLine: textDeco
+                                            }}
+                                            onPress={() => this.changeItemState(rowData.id)}
+                                        >{rowData.text}</Text>
+                                    </View>
+                                </TouchableNativeFeedback>
+                            );
                         }}
                     />
 
