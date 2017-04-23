@@ -6,6 +6,7 @@ import * as React from "react";
 import {ListView, StatusBar, Text, TextInput, TouchableNativeFeedback, View} from "react-native";
 import {Toolbar, BottomNavigation, ThemeProvider} from 'react-native-material-ui';
 import * as COLOR from "react-native-material-ui/src/styles/colors";
+let EditDialog = require("./EditDialog");
 
 const uiTheme = {
     palette: {
@@ -33,7 +34,8 @@ class MainActivity extends React.Component {
             items: [
                 {text: 'Done sample', done: true},
                 {text: 'Pending sample', done: false}
-            ]
+            ],
+            dialogvisible: false,
         };
 
         // bindings
@@ -78,15 +80,15 @@ class MainActivity extends React.Component {
                             let textDeco = rowData.done ? 'line-through' : 'none';
                             console.log(rowData);
 
-                            return (<TouchableNativeFeedback
-                                background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{alignSelf: "stretch", backgroundColor: textBgColor}}>
+                            return (<TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
+                                <View style={{backgroundColor: textBgColor}}>
                                     <Text
                                         style={{
-                                            padding: 12, textAlign: 'left', justifyContent: 'center',
+                                            padding: 12, textAlign: 'left', textAlignVertical: 'center',
                                             fontSize: 16, textDecorationLine: textDeco
                                         }}
                                         onPress={() => this.changeItemState(rowData.id)}
+                                        onLongPress={}
                                     >{rowData.text}</Text>
                                 </View>
                             </TouchableNativeFeedback>);
@@ -110,6 +112,7 @@ class MainActivity extends React.Component {
                             label="Done"
                             onPress={() => this.setState({active: MainActivity.ACTIVE_DONE})}/>
                     </BottomNavigation>
+
                 </View>
             </ThemeProvider>
         )
