@@ -80,15 +80,16 @@ class MainActivity extends React.Component {
                             let textDeco = rowData.done ? 'line-through' : 'none';
                             console.log(rowData);
 
-                            return (<TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{backgroundColor: textBgColor}}>
+                            return (<TouchableNativeFeedback
+                                onPress={() => this.changeItemState(rowData.id)}
+                                onLongPress={() => this.popupItemInfo(rowData.id)}
+                                background={TouchableNativeFeedback.SelectableBackground()}>
+                                <View style={{alignSelf: "stretch", backgroundColor: textBgColor}}>
                                     <Text
                                         style={{
                                             padding: 12, textAlign: 'left', textAlignVertical: 'center',
                                             fontSize: 16, textDecorationLine: textDeco
                                         }}
-                                        onPress={() => this.changeItemState(rowData.id)}
-                                        onLongPress={}
                                     >{rowData.text}</Text>
                                 </View>
                             </TouchableNativeFeedback>);
@@ -162,6 +163,10 @@ class MainActivity extends React.Component {
         let i = this.state.items;
         i[id].done = !i[id].done;
         this.setState({items: i});
+    }
+
+    popupItemInfo(id) {
+
     }
 }
 
